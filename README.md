@@ -21,6 +21,17 @@ To parse fetched report, use following code:
 
     report = ITunesIngestion::SalesReportParser.parse(report_data)
 
+To fetch totals per month for a specific app, use following code:
+    e.g.:
+
+    sales = CompanySales.new("michael@franken.ws", "************", "85646157", "Domotix")
+
+    sales.sales_per_month
+
+    or
+
+    sales.total_report
+
 ## Copyright
 
 Copyright (c) 2012 Francis Chong. See LICENSE for details.
