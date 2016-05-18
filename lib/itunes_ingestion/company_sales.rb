@@ -61,12 +61,19 @@ class CompanySales
     end
   end
 
-  def month_reports_as_log_as_available()
+  def month_report(nr_of_months)
+    (1..nr_of_months).reverse_each do |d|
+      month = @today.prev_month(d)
+      fetch(month, "Monthly")
+    end
+  end
+
+  def year_reports_as_long_as_available()
     d = 1
     loop do
-      month = @today.prev_month(d)
+      year= @today.prev_year(d)
       d += 1
-      break unless fetch(month, "Monthly")
+      break unless fetch(year, "Yearly")
     end
   end
 
@@ -78,7 +85,9 @@ class CompanySales
   end
 
   def total_report()
-      month_reports_as_log_as_available()
+      year_reports_as_long_as_available
+      month_report(@today.month-1)
+      #month_reports_as_log_as_available()
       day_report(@today.mday-1)
       puts ""
       @sales_per_month.keys.sort.each do |k|
